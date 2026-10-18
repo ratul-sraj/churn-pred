@@ -86,32 +86,3 @@ requirements.txt
 6. Train and compare Logistic Regression, Decision Tree, Random Forest,
    K-Neighbours and Naive Bayes once each, printing a confusion matrix and
    per-class report for every one, then table the results.
-
-## Corrections made
-
-An earlier revision had four rough edges; all four are fixed:
-
-- **The null row was dropped by hardcoded position** (`df.drop(199295)`), which
-  deletes the wrong row — or none — if the CSV changes. Now `df.dropna()`.
-- **The models were trained twice** (once for the confusion matrices, once for
-  the results table). Now a single loop does both.
-- **`SVC` was imported and never used.** Removed.
-- **`LabelEncoder` was applied to nominal columns**, which imposes a false order
-  (`Basic=1 < Premium=2 < Standard=3`). Now one-hot encoded.
-
-Two consequences of the encoding change are worth knowing:
-
-- Logistic Regression improved from 0.8485 to 0.8964 — a linear model benefits
-  from not being told that Premium sits "between" Basic and Standard.
-- **Naive Bayes got worse, 0.9094 to 0.8656.** `GaussianNB` assumes each feature
-  is normally distributed, and 0/1 dummy columns violate that assumption more
-  than a single ordinal integer did. A one-hot change is not neutral across model
-  families.
-
-`random_state` is also now fixed on the split and on every model, so these
-numbers reproduce; previously the tree-based models gave a slightly different
-result on each run.
-
-One thing deliberately left alone: features are not scaled, which K-Neighbours is
-sensitive to. It makes no difference here because the label is near-deterministic,
-but on a real dataset KNN should be run on standardised features.
