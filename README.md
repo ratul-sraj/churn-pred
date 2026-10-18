@@ -20,7 +20,9 @@ in this repo.
 | **Decision Tree** | **0.9998** | 1.0000 |
 
 The notebook selects the Decision Tree (99.98%). **But that number should not be
-read as churn being 99.98% predictable — see the next section.**
+read as churn being 99.98% predictable — see the next section.** The notebook
+itself now contains this audit as its final section, so the analysis and the
+conclusion agree.
 
 ## Important: the 99.98% is a property of this dataset
 
